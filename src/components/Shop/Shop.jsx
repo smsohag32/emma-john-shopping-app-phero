@@ -1,53 +1,50 @@
 import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import Banner from "../Banner/Banner";
-import CartList from "../CartList/CartList";
 import Product from "../Product/Product";
 import "./Shop.css";
+
+// shop components
 const Shop = () => {
+  // declare use state
   const [products, setProducts] = useState([]);
   const [addCart, setAddToCart] = useState([]);
   const [isAdded, setIsAdded] = useState(false);
+
+  // event handler
   const handleAddCart = (product) => {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Product added",
-      showConfirmButton: false,
-      timer: 1000,
-    });
-    // console.log(product);
     setIsAdded(true);
     const newCart = [...addCart, product];
     setAddToCart(newCart);
-    setTimeout(() => {
-      setIsAdded(false);
-    }, 1000);
   };
-  const handleRemove = (item) => {
-    const id = item.id;
-    const filterId = addCart.filter((ct) => ct.id != id);
-    setAddToCart(filterId);
-  };
+
+  // useEffect side effect fetch data
   useEffect(() => {
     fetch("products.json")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
+
+  // react jsx
   return (
     <div className="grid grid-cols-5">
       <div className="products-container mt-10 col-span-4">
         {/* banner */}
         <Banner />
+
+        {/* products container */}
         <div className=" grid grid-cols-1 md:grid-cols-3 gap-5 px-5 md:px-12">
           {products.map((product) => (
             <Product product={product} handleAddCart={handleAddCart}></Product>
           ))}
         </div>
       </div>
+
+      {/* add to cart container */}
       <div className="cart-container w-[25%] fixed top-20 right-0 h-screen overflow-y-scroll border-1 border-blue-200 border p-2">
-        <CartList handleRemove={handleRemove} addCart={addCart} />
+        <h1>Summary</h1>
       </div>
+
+      {/* end */}
     </div>
   );
 };
