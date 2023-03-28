@@ -7,9 +7,19 @@ const Cart = (props) => {
   //   total
   let totalPrice = 0;
   let shipping = 0;
+  let quantity = 0;
+
   for (const product of addCart) {
-    totalPrice = totalPrice + product.price;
+    // product quantity jodi na thake
+
+    // product.quantity = product.quantity || 1;
+    // if (product.quantity === 0) {
+    //   product.quantity = 1;
+    // }
+
+    totalPrice = totalPrice + product.price * product.quantity;
     shipping = shipping + product.shipping;
+    quantity = quantity + product.quantity;
   }
   //   calculate tax
   const tax = (totalPrice * 7) / 100;
@@ -18,7 +28,7 @@ const Cart = (props) => {
   const grandTotal = totalPrice + shipping + tax;
   return (
     <div className="p-3">
-      <p className=" text-sm font-semibold">Selected Items: {addCart.length}</p>
+      <p className=" text-sm font-semibold">Selected Items: {quantity}</p>
       <p className=" text-sm font-semibold">
         Total Price: ${totalPrice.toFixed(2)}
       </p>

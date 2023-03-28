@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { addToDb, getShoppingCart } from "../../utilities/fakedb";
 import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
@@ -13,11 +14,41 @@ const Shop = () => {
   // event handler
   const handleAddCart = (product) => {
     setIsAdded(true);
-    const newCart = [...addCart, product];
+    // const newCart = [...addCart, product];
+    let newCart = [];
+    const exists = addCart.find((pd) => pd.id === product.id);
+    if (!exists) {
+      product.quantity = 1;
+      newCart = [...addCart, product];
+    } else {
+      exists.quantity = exists.quantity + 1;
+      const remaining = addCart.filter((pd) => pd.id !== product.id);
+      newCart = [...remaining, product];
+    }
     setAddToCart(newCart);
+    addToDb(product.id);
   };
 
   // useEffect side effect fetch data
+  useEffect(() => {
+    const storedCart = getShoppingCart();
+    const savedCart = [];
+    // step 1 get id
+    for (const id in storedCart) {
+      // step -2 get the product using id
+      const addedProduct = products.find((product) => product.id == id);
+      if (addedProduct) {
+        // step -3 get quantity of the product
+        const quantity = storedCart[id];
+        // savedProduct.quantity = quantity;
+        addedProduct.quantity = quantity;
+
+        // step -4 add the added product to the saved cart
+        savedCart.push(addedProduct);
+      }
+    }
+    setAddToCart(savedCart);
+  }, [products]);
   useEffect(() => {
     fetch("products.json")
       .then((res) => res.json())
