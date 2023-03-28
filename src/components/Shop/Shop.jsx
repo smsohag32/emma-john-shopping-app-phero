@@ -29,7 +29,6 @@ const Shop = () => {
     addToDb(product.id);
   };
 
-  // useEffect side effect fetch data
   useEffect(() => {
     const storedCart = getShoppingCart();
     const savedCart = [];
@@ -49,6 +48,7 @@ const Shop = () => {
     }
     setAddToCart(savedCart);
   }, [products]);
+  // useEffect side effect fetch data
   useEffect(() => {
     fetch("products.json")
       .then((res) => res.json())
