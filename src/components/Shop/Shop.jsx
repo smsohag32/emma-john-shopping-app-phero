@@ -25,6 +25,7 @@ const Shop = () => {
       const remaining = addCart.filter((pd) => pd.id !== product.id);
       newCart = [...remaining, product];
     }
+
     setAddToCart(newCart);
     addToDb(product.id);
   };
