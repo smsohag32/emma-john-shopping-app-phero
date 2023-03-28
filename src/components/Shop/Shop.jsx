@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Banner from "../Banner/Banner";
 import Product from "../Product/Product";
 import "./Shop.css";
 
@@ -26,10 +25,10 @@ const Shop = () => {
 
   // react jsx
   return (
-    <div className="grid grid-cols-5">
+    <div className="grid order-2 grid-cols-1 md:order-1 md:grid-cols-5 max-w-[1200px] mx-auto">
       <div className="products-container mt-10 col-span-4">
         {/* banner */}
-        <Banner />
+        {/* <Banner /> */}
 
         {/* products container */}
         <div className=" grid grid-cols-1 md:grid-cols-3 gap-5 px-5 md:px-12">
@@ -40,7 +39,7 @@ const Shop = () => {
       </div>
 
       {/* add to cart container */}
-      <div className="cart-container w-[25%] fixed top-20 right-0 h-screen overflow-y-scroll border-1 border-blue-200 border p-2">
+      <div className="cart-container h-screen sticky top-0 bg-slate-400 border-1 border-blue-200 border p-2">
         <h1>Summary</h1>
       </div>
 

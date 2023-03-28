@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../../assets/images/Logo.svg";
 const Header = () => {
   return (
-    <div className="bg-[#232f3e] text-white sticky top-0 z-30">
+    <div className="bg-[#232f3e] text-white">
       <nav className="max-w-[1200px] h-20 mx-auto px-5 font-semibold flex justify-between items-center">
         <img src={logo} alt="" />
         <div className="flex gap-4 text-sm">
