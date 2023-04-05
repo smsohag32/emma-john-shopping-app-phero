@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { addToDb, getShoppingCart } from "../../utilities/fakedb";
+import {
+  addToDb,
+  deleteShoppingCart,
+  getShoppingCart,
+} from "../../utilities/fakedb";
 import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
@@ -28,6 +32,10 @@ const Shop = () => {
 
     setAddToCart(newCart);
     addToDb(product.id);
+  };
+  const handleClear = () => {
+    setAddToCart([]);
+    deleteShoppingCart();
   };
 
   useEffect(() => {
@@ -77,7 +85,7 @@ const Shop = () => {
 
       {/* add to cart container */}
       <div className="cart-container h-screen sticky top-0 bg-orange-300 bg-opacity-60 border-1 border-blue-200 border p-2">
-        <Cart addCart={addCart} />
+        <Cart addCart={addCart} handleClear={handleClear} />
       </div>
 
       {/* end */}
