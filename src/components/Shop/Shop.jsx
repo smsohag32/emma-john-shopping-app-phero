@@ -77,8 +77,6 @@ const Shop = () => {
 
       {/* add to cart container */}
       <div className="cart-container h-screen sticky top-0 bg-orange-300 bg-opacity-60 border-1 border-blue-200 border p-2">
-        <h1 className="font-bold text-center">Order Summary</h1>
-        <hr className="my-2 border-red-400" />
         <Cart addCart={addCart} />
       </div>
 

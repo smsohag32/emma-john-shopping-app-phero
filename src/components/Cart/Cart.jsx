@@ -26,6 +26,7 @@ const Cart = (props) => {
   const grandTotal = totalPrice + shipping + tax;
   return (
     <div className="p-3">
+      <p className="my-5 font-bold text-lg">Order Summary:</p>
       <p className=" text-sm font-semibold">Selected Items: {quantity}</p>
       <p className=" text-sm font-semibold">
         Total Price: ${totalPrice.toFixed(2)}
