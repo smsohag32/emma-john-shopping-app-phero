@@ -27,10 +27,12 @@ const addToDb = id => {
 const removeFromDb = id => {
     const shoppingCart = getShoppingCart();
     if (id in shoppingCart) {
+        console.log(id);
         delete shoppingCart[id];
         localStorage.setItem('shopping-cart', JSON.stringify(shoppingCart));
     }
 }
+
 
 
 
