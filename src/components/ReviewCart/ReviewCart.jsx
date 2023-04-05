@@ -1,7 +1,6 @@
 import React from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 const ReviewCart = ({ cart, handleCartRemove }) => {
-  console.log(cart);
   const { id, img, name, quantity, price } = cart;
   return (
     <div className="flex w-4/6 mb-5 border p-4">

@@ -7,6 +7,7 @@ import {
 import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
+import { Link } from "react-router-dom";
 
 // shop components
 const Shop = () => {
@@ -85,7 +86,13 @@ const Shop = () => {
 
       {/* add to cart container */}
       <div className="cart-container h-screen sticky top-0 bg-orange-300 bg-opacity-60 border-1 border-blue-200 border p-2">
-        <Cart addCart={addCart} handleClear={handleClear} />
+        <Cart addCart={addCart} handleClear={handleClear}>
+          <Link to="/orders">
+            <button className="flex justify-between mt-5 items-center w-full btn-warning text-white py-2 px-3 font-bold text-sm">
+              Review Order
+            </button>
+          </Link>
+        </Cart>
       </div>
 
       {/* end */}

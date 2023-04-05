@@ -3,6 +3,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 const Cart = (props) => {
   const addCart = props.addCart;
   const handleClear = props.handleClear;
+  const children = props.children;
   //   total
   let totalPrice = 0;
   let shipping = 0;
@@ -46,6 +47,7 @@ const Cart = (props) => {
           <TrashIcon className="h-6 w-6 text-white" />
         </span>
       </button>
+      {children}
     </div>
   );
 };
