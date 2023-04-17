@@ -11,7 +11,9 @@ const Product = (props) => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
-        <p className="text-xl">Price $ {price}</p>
+        <p className="text-xl">
+          Price: <span className="text-orange-400">{price}</span> BDT
+        </p>
         <p>Manufacturer: {seller}</p>
         <p>Rating: {ratingsCount} Starts</p>
         <div className="card-actions">

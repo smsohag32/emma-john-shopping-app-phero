@@ -19,6 +19,9 @@ const Header = () => {
           <Link className="hover:text-slate-400" to="/login">
             Login
           </Link>
+          <Link className="hover:text-slate-400" to="/singup">
+            Sing up
+          </Link>
         </div>
       </nav>
     </div>

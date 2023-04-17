@@ -29,15 +29,18 @@ const Cart = (props) => {
   return (
     <div className="p-3">
       <p className="my-5 font-bold text-lg">Order Summary:</p>
-      <p className=" text-sm font-semibold">Selected Items: {quantity}</p>
+      <p className=" text-md font-semibold mb-2">Selected Items: {quantity}</p>
       <p className=" text-sm font-semibold">
-        Total Price: ${totalPrice.toFixed(2)}
+        Total Price: {totalPrice.toFixed(2)} BDT
       </p>
       <p className=" text-sm font-semibold">
-        Total Shipping: ${shipping.toFixed(2)}
+        Total Shipping: {shipping.toFixed(2)} BDT
       </p>
-      <p className=" text-sm font-semibold">Tax: ${tax.toFixed(2)}</p>
-      <p className="font-bold">Grand Total: ${grandTotal.toFixed(2)}</p>
+      <p className=" text-sm font-semibold">Tax: {tax.toFixed(2)} BDT</p>
+      <p className="font-bold mt-3">
+        Grand Total: <br />
+        {grandTotal.toFixed(2)} BDT
+      </p>
       <button
         onClick={handleClear}
         className="btn-clear-cart flex justify-between mt-5 items-center w-full btn-warning text-white py-2 px-3 font-bold text-md"
