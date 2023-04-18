@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const SingUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, setUser } = useContext(AuthContext);
   const [error, setError] = useState("");
 
   const handleSingUp = (e) => {
@@ -19,13 +19,13 @@ const SingUp = () => {
       setError("Your password not match");
       return;
     } else if (password.length < 6) {
-      setError("Please provide 6 characters password");
+      setError("Password must be 6 characters or longer.");
       return;
     }
     createUser(email, password)
       .then((result) => {
         const userLoggedIn = result.user;
-        console.log(userLoggedIn);
+        setUser(userLoggedIn);
       })
       .catch((error) => {
         setError(error.message);
