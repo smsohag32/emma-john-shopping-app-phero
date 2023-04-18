@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const SingUp = () => {
+  const { createUser } = useContext(AuthContext);
   const [error, setError] = useState("");
+
   const handleSingUp = (e) => {
     e.preventDefault();
 
@@ -11,7 +14,7 @@ const SingUp = () => {
     const password = form.password.value;
     const confirm = form.confirm.value;
     console.log(email, password, confirm);
-
+    setError("");
     if (password !== confirm) {
       setError("Your password not match");
       return;
@@ -19,6 +22,14 @@ const SingUp = () => {
       setError("Please provide 6 characters password");
       return;
     }
+    createUser(email, password)
+      .then((result) => {
+        const userLoggedIn = result.user;
+        console.log(userLoggedIn);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
     form.reset();
   };
   return (
@@ -34,6 +45,7 @@ const SingUp = () => {
             type="email"
             name="email"
             placeholder="email"
+            required
           />
         </div>
         <div className="form-control">
@@ -45,6 +57,7 @@ const SingUp = () => {
             type="password"
             name="password"
             placeholder="password"
+            required
           />
         </div>
         <div className="form-control">
@@ -56,6 +69,7 @@ const SingUp = () => {
             type="password"
             name="confirm"
             placeholder="password"
+            required
           />
         </div>
 
