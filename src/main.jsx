@@ -10,6 +10,7 @@ import Login from "./components/Login/Login";
 import LoadOrder from "./LoadOrder/LoadOrder";
 import CheckOut from "./components/CheckOut/CheckOut";
 import SingUp from "./components/SingUp/SingUp";
+import AuthProvider, { AuthContext } from "./Providers/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <AuthProvider>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </AuthProvider>
 );
