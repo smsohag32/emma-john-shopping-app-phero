@@ -11,6 +11,7 @@ import LoadOrder from "./LoadOrder/LoadOrder";
 import CheckOut from "./components/CheckOut/CheckOut";
 import SingUp from "./components/SingUp/SingUp";
 import AuthProvider, { AuthContext } from "./Providers/AuthProvider";
+import PrivateRoute from "./routes/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
       },
       {
         path: "orders",
-        element: <Orders></Orders>,
+        element: (
+          <PrivateRoute>
+            <Orders></Orders>
+          </PrivateRoute>
+        ),
         loader: LoadOrder,
       },
       {
@@ -40,7 +45,11 @@ const router = createBrowserRouter([
       },
       {
         path: "checkout",
-        element: <CheckOut></CheckOut>,
+        element: (
+          <PrivateRoute>
+            <CheckOut></CheckOut>
+          </PrivateRoute>
+        ),
       },
     ],
   },
