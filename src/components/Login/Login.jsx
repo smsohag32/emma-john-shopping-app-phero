@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
-  const { userLogin, loading } = useContext(AuthContext);
+  const { userLogin, googleLogin } = useContext(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,6 +24,9 @@ const Login = () => {
       .catch((error) => {
         setError(error.message);
       });
+  };
+  const handleGoogleLogin = () => {
+    googleLogin().then().catch();
   };
   return (
     <div className="w-80 items-center justify-center flex flex-col gap-4 my-10 mx-auto border-2 border-warning py-5 font-serif px-3 min-h-[70vh] shadow-md shadow-warning">
@@ -67,7 +70,10 @@ const Login = () => {
           />
         </div>
       </form>
-      <button className="flex gap-3 items-center btn btn-outline">
+      <button
+        onClick={handleGoogleLogin}
+        className="flex gap-3 items-center btn btn-outline"
+      >
         <FaGoogle className="text-green-600" /> Continue with Google
       </button>
       <p>

@@ -2,7 +2,7 @@ import React from "react";
 
 const Product = (props) => {
   const handleAddCart = props.handleAddCart;
-  const { id, img, name, seller, quantity, price, ratingsCount } =
+  const { _id, img, name, seller, quantity, price, ratingsCount } =
     props.product;
   return (
     <div className="card border border-stone-400 card-compact w-full bg-base-100 shadow-xl">

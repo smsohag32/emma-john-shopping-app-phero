@@ -2,7 +2,10 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { FaEye, FaGoogle } from "react-icons/fa";
-
+import { signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import app from "../../firebase/firebase.config";
+const auth = getAuth(app);
 const SingUp = () => {
   const { createUser } = useContext(AuthContext);
   const [error, setError] = useState("");
@@ -29,6 +32,7 @@ const SingUp = () => {
     createUser(email, password)
       .then((result) => {
         alert("Account created");
+        signOut(auth);
       })
       .catch((error) => {
         setError(error.message);
