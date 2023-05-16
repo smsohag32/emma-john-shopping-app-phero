@@ -15,13 +15,21 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [addCart, setAddToCart] = useState([]);
   const [isAdded, setIsAdded] = useState(false);
-
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
   // pagination
   const { totalProducts } = useLoaderData();
-  const itemsPerPage = 10; //TODO: MAKE IT DYNAMIC
+  // const itemsPerPage = 10; //TODO: MAKE IT DYNAMIC
   const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
   const pageNumbers = [...Array(totalPages).keys()];
+
+  const option = [5, 10, 20, 35];
+
+  const handleSelectChange = (e) => {
+    setItemsPerPage(parseInt(e.target.value));
+    setCurrentPage(0);
+  };
 
   // event handler
   const handleAddCart = (product) => {
@@ -48,34 +56,57 @@ const Shop = () => {
 
   useEffect(() => {
     const storedCart = getShoppingCart();
-    const savedCart = [];
-    // step 1 get id
-    for (const id in storedCart) {
-      // step -2 get the product using id
-      const addedProduct = products.find((product) => product._id == id);
-      if (addedProduct) {
-        // step -3 get quantity of the product
-        const quantity = storedCart[id];
-        // savedProduct.quantity = quantity;
-        addedProduct.quantity = quantity;
+    const ids = Object.keys(storedCart);
+    fetch("http://localhost:5000/productsByIds", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(ids),
+    })
+      .then((res) => res.json())
+      .then((cartProducts) => {
+        const savedCart = [];
+        // step 1 get id
+        for (const id in storedCart) {
+          // step -2 get the product using id
+          const addedProduct = products.find((product) => product._id == id);
+          if (addedProduct) {
+            // step -3 get quantity of the product
+            const quantity = storedCart[id];
+            // savedProduct.quantity = quantity;
+            addedProduct.quantity = quantity;
 
-        // step -4 add the added product to the saved cart
-        savedCart.push(addedProduct);
-      }
-    }
-    setAddToCart(savedCart);
+            // step -4 add the added product to the saved cart
+            savedCart.push(addedProduct);
+          }
+        }
+        setAddToCart(savedCart);
+      });
   }, [products]);
   // useEffect side effect fetch data
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(
+        `http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`
+      );
+      const result = await response.json();
+      setProducts(result);
+    }
+
+    fetchData();
+  }, [currentPage, itemsPerPage]);
+
   // react jsx
   return (
     <>
-      <div className="grid order-2 grid-cols-1 md:order-1 md:grid-cols-5 max-w-[1200px] mx-auto">
+      <div className="grid order-2 scroll-auto grid-cols-1 md:order-1 md:grid-cols-5 max-w-[1200px] mx-auto">
         <div className="products-container mt-10 col-span-4">
           {/* banner */}
           {/* <Banner /> */}
@@ -105,12 +136,24 @@ const Shop = () => {
 
         {/* end */}
       </div>
-      <div className="text-center justify-center mt-10 mb-8 flex gap-2">
+      <div className="text-center flex-wrap justify-center mt-10 mb-8 flex gap-2">
         {pageNumbers.map((num) => (
-          <button className="border-2 btn btn-outline btn-square" key={num}>
+          <button
+            onClick={() => setCurrentPage(num)}
+            className="border-2 btn btn-outline btn-square"
+            key={num}
+            disabled={currentPage == num}
+          >
             {num}
           </button>
         ))}
+        <select value={itemsPerPage} onChange={handleSelectChange}>
+          {option.map((op) => (
+            <option key={op} value={op}>
+              {op}
+            </option>
+          ))}
+        </select>
       </div>
     </>
   );
